@@ -30,7 +30,7 @@ function __bmark_parse_file {
 # complete for.
 #
 # TODO: Does not handle newlines or tabs in files
-__bmark_complete_dir() {
+function __bmark_complete_dir {
   local cur="${COMP_WORDS[COMP_CWORD]}"
 
   if [[ "${#cur}" > 0 ]] ; then
@@ -56,10 +56,10 @@ function __bmark_gen_completions {
     local bmark="${__bmark_tags[$i]}"
     local loc="${__bmark_locs[$i]}"
     eval '
-      _'$bmark'() {
+      function _'$bmark' {
         __bmark_complete_dir "'$loc'"
       }
-      '$bmark' () {
+      function '$bmark' {
           cd "'$loc'$1"
       }
       complete -o nospace -F _'$bmark' '$bmark'
